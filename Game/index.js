@@ -11,8 +11,12 @@ export default class Game extends React.Component {
       throw console.log('ROOMID NOT DEFINED IN GAME COMPONENT!!!!');
 
     this._room = Rooms.get(roomId);
-    if(!this.room)
-      throw console.log('Room not found in game component');
+    if(!this.room){
+      //Then user has likely refreshed, or gone straight to /Game. Redirect to lobby
+      //is necessary.
+      console.log('Game: Error loading game. Redirecting to lobby.');
+      return props.history.push(`${props.match.path}/..`);
+    }
 
     // TODO: Loading progress screen
     this.leave = this.leave.bind(this);
