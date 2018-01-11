@@ -12,7 +12,7 @@ export default class Game extends React.Component {
 
     this._room = Rooms.get(roomId);
     if(!this.room)
-      return window.location.href = '../';
+      return window.location.href = `${props.match.path}/..`;
 
     // TODO: Loading progress screen
     this.leave = this.leave.bind(this);
