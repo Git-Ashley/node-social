@@ -1,5 +1,5 @@
 {
-  "name": "nodesocial",
+  "name": "node-social",
   "version": "0.0.1",
   "description": "NodeSocial App",
   "main": "index.js",
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nodeocrat/NodeSocial.git"
+    "url": "git+https://github.com/Nodeocrat/node-social.git"
   },
   "author": "Ashley J. Phillips",
   "bugs": {
-    "url": "https://github.com/Nodeocrat/NodeSocial/issues"
+    "url": "https://github.com/Nodeocrat/node-social/issues"
   },
-  "homepage": "https://github.com/Nodeocrat/NodeSocial#readme",
+  "homepage": "https://github.com/Nodeocrat/node-social#readme",
   "dependencies": {
     "client-room": "git+https://github.com/Nodeocrat/client-room.git",
     "dom-tools": "git+https://github.com/Nodeocrat/dom-tools.git",
