@@ -1,0 +1,89 @@
+.flexContainer {
+  display: flex;
+  height: 500px;
+  min-width: 100%;
+  background-color: #36393e;
+}
+
+/*Styles for position here*/
+
+
+/*.outputInputContainer {
+  position: relative;
+  flex: 4;
+  color: #cccccc;
+}*/
+
+.outputInputContainer {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  color: #cccccc;
+}
+
+.output {
+  display: inline-block;
+  word-break: break-word;
+  flex: 1;
+  border-bottom: 1px solid hsla(0,0%,100%,.06);
+}
+
+/* Messages */
+.messageContainer {
+  display: flex;
+  padding: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.messageImage {
+  border-radius: 50%;
+  margin-right: 10px;
+  height: 40px;
+  width: 40px;
+}
+.messageUsername {
+  font-weight: bold;
+  color: white;
+}
+
+/* Input & send form */
+.sendForm {
+  display: flex;
+  width: calc(100% - 20px);
+
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+
+  border-color: hsla(0,0%,100%,.06);
+  background-color: hsla(0,0%,100%,.06);
+
+  margin: 10px;
+  padding: 5px;
+  padding-left: 10px;
+}
+.input {
+  border: none;
+  margin-right: 5px;
+  background-color: transparent;
+  outline-color: transparent;
+  width: 100%;
+  flex: 1;
+}
+
+.userList {
+  white-space: nowrap;
+  padding: 20px;
+  background-color: #2f3136;
+  flex: 1;
+  min-width: 100px;
+}
+.playerListItem {
+  padding: 5px;
+  display: flex;
+}
+.playerListName {
+  margin-left: 8px;
+  margin-top: 5px;
+  color: white;
+  font-weight: bold;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "nodesocial",
+  "version": "0.0.1",
+  "description": "NodeSocial App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nodeocrat/NodeSocial.git"
+  },
+  "author": "Ashley J. Phillips",
+  "bugs": {
+    "url": "https://github.com/Nodeocrat/NodeSocial/issues"
+  },
+  "homepage": "https://github.com/Nodeocrat/NodeSocial#readme",
+  "dependencies": {
+    "client-room": "git+https://github.com/Nodeocrat/client-room.git",
+    "dom-tools": "git+https://github.com/Nodeocrat/dom-tools.git",
+    "math-tools": "git+https://github.com/Nodeocrat/math-tools.git",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
+  }
+}

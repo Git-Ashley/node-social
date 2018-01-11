@@ -1,0 +1,32 @@
+.container {
+  background-color: #acd1da;
+  border-style: solid;
+  border-color: #5a6f94;
+  border-width: 5px;
+  padding: 10px;
+}
+.innerContainer {
+  display: flex;
+}
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.gameWrap {
+  background-color: #558eca;
+  border-radius: 5px;
+  padding: 5px;
+  width: 150px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.gameName {
+  font-weight: bold;
+  font-size: 17px;
+  text-align: center;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
