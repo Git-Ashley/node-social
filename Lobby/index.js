@@ -7,6 +7,7 @@ import OrderedHash from '../utils/OrderedHash';
 import GameCreation from './GameCreation';
 import StatusDialog from '../utils/StatusDialog';
 import {ClientRoom, Rooms} from 'client-room';
+import DisconnectDialog from './DisconnectDialog';
 
 class Lobby extends React.Component {
   constructor(props){
@@ -21,8 +22,7 @@ class Lobby extends React.Component {
       showStatusDialog: false,
       statusText: "",
       loading: true,
-      sendText: "",
-      disconnected: false
+      sendText: ""
     };
 
     let room = null;
@@ -41,6 +41,8 @@ class Lobby extends React.Component {
       this._room = room;
       this.room.listenerContext = this;
     }
+
+    this.disconnectDialog = new disconnectDialog('node-social-popup');
   }
 
   on(event, listener){
@@ -88,10 +90,10 @@ class Lobby extends React.Component {
           this.setState({loading: false});
         });
         this.on('disconnect', function(){
-          this.setState({disconnected: true});
+          this.disconnectDialog.show();
         });
         this.on('reconnect', function(){
-          this.setState({disconnected: false});
+          this.disconnectDialog.close();
         });
 
         this.room.initialized();
@@ -104,6 +106,7 @@ class Lobby extends React.Component {
 
   componentWillUnmount(){
     this.room.listenerContext = null;
+    this.disconnectDialog.close();
     this.props.actions.leftLobby();
   }
 
@@ -158,8 +161,6 @@ class Lobby extends React.Component {
     let notificationJsx = null;
     if(this.state.loading)
       notificationJsx = <div>Loading lobby...</div>;
-    else if(this.state.disconnected)
-      notificationJsx = <div>Disconnected. Attempting to reconnect...</div>;
 
     return (
       <section style={{position: 'relative'}}>
