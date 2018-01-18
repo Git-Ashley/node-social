@@ -1,9 +1,10 @@
 import React from 'react';
-import BaseDialog from '@lib/';
+import BaseDialog from '@lib/Dialogs/base';
 
 export default class extends BaseDialog {
-  render(){
-    </div style={{color: white}}>Disconnected. Attepmting to reconnect...</div>
+  constructor(root){
+    const component = () => (<div style={{color: 'white'}}>Disconnected. Attepmting to reconnect...</div>);
+    super(component, root);
   }
 
   close(){

@@ -5,7 +5,6 @@ import ChatView from '../Chat/ChatView';
 import EventTypes from '../EventTypes';
 import OrderedHash from '../utils/OrderedHash';
 import GameCreation from './GameCreation';
-import StatusDialog from '../utils/StatusDialog';
 import {ClientRoom, Rooms} from 'client-room';
 import DisconnectDialog from './DisconnectDialog';
 
@@ -13,17 +12,18 @@ class Lobby extends React.Component {
   constructor(props){
     super(props);
 
+    this.disconnectDialog = new DisconnectDialog('lobby-root');
     this.handleSendMessage = this.handleSendMessage.bind(this);
     this.handleCreateGame = this.handleCreateGame.bind(this);
     this.handleSendTextChange = this.handleSendTextChange.bind(this);
     this.handleJoinGame = this.handleJoinGame.bind(this);
     this.init = this.init.bind(this);
     this.state = {
-      showStatusDialog: false,
       statusText: "",
       loading: true,
       sendText: ""
     };
+
 
     let room = null;
     console.log(`props: ${props.roomId}`);
@@ -42,7 +42,6 @@ class Lobby extends React.Component {
       this.room.listenerContext = this;
     }
 
-    this.disconnectDialog = new disconnectDialog('node-social-popup');
   }
 
   on(event, listener){
@@ -54,6 +53,7 @@ class Lobby extends React.Component {
   }
 
   init(){
+    const self = this;
     this.room.join('/api/socialapp/lobby/join')
       .then(() => {
         this.on(EventTypes.CHAT_MESSAGE_RECEIVED,
@@ -90,10 +90,10 @@ class Lobby extends React.Component {
           this.setState({loading: false});
         });
         this.on('disconnect', function(){
-          this.disconnectDialog.show();
+          self.disconnectDialog.show();
         });
         this.on('reconnect', function(){
-          this.disconnectDialog.close();
+          self.disconnectDialog.close();
         });
 
         this.room.initialized();
@@ -163,7 +163,7 @@ class Lobby extends React.Component {
       notificationJsx = <div>Loading lobby...</div>;
 
     return (
-      <section style={{position: 'relative'}}>
+      <section id="lobby-root" style={{position: 'relative'}}>
         <div id="node-social-popup"/>
         {notificationJsx ?
           notificationJsx :
@@ -177,10 +177,6 @@ class Lobby extends React.Component {
               onSendMessage={this.handleSendMessage}
               onSendTextChange={this.handleSendTextChange}
               sendText={this.state.sendText}/>
-            { this.state.showStatusDialog ?
-              <StatusDialog text={this.state.statusText} root="node-social-popup" onClose={()=>{this.setState({showStatusDialog: false})}}/>
-              : null
-            }
           </div>
         }
       </section>

@@ -1,34 +1,25 @@
 import React from 'react';
-import Dialog from './Dialog';
+import BaseDialog from '@lib/Dialogs/base';
 import button from '@styles/button.css';
 import text from '@styles/text.css';
 
-export default class StatusDialog extends Dialog {
+const backgroundStyles = {
+	backgroundColor: '#777777',
+	padding: '10px',
+	borderRadius: '5px'
+};
 
-	close(){
-		this.props.onClose();
-		super.close();
-	}
-
-    // Note the lack of render method, as that is applied from the mixin. Use `renderLayer` as your replacement.
-	renderLayer() {
-
-		const backgroundStyles = {
-			backgroundColor: '#777777',
-			padding: '10px',
-			borderRadius: '5px'
-		};
-
-		return (
-			<div style={backgroundStyles}>
-				{this.props.title ?
-					<div className={text.subTitle}>{this.props.title}</div> : null
+export default class StatusDialog extends BaseDialog {
+	constructor(root, {title, text}){
+		const component = props => (<div style={backgroundStyles}>
+				{title ?
+					<div className={text.subTitle}>{title}</div> : null
 				}
-				<div className={text.regular}>{this.props.text}</div>
-				<div style={{marginLeft: '5px', marginTop: '10px'}} className={button.regular} onClick={this.close}>
+				<div className={text.regular}>{text}</div>
+				<div style={{marginLeft: '5px', marginTop: '10px'}} className={button.regular} onClick={this._close}>
 					OK
 				</div>
-			</div>
-		);
+			</div>);
+		super(component, root);
 	}
 };
