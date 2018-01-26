@@ -1,8 +1,9 @@
 .flexContainer {
   display: flex;
-  height: 500px;
-  min-width: 100%;
+  flex: 1;
+  /*min-width: 100%;*/
   background-color: #36393e;
+  height: 100%;
 }
 
 /*Styles for position here*/

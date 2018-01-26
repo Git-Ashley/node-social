@@ -1,12 +1,12 @@
 .container {
   background-color: #acd1da;
+  height: 100%;
   border-style: solid;
   border-color: #5a6f94;
   border-width: 5px;
   padding: 10px;
-}
-.innerContainer {
   display: flex;
+  flex-direction: column;
 }
 .title {
   text-align: center;
@@ -20,8 +20,7 @@
   border-radius: 5px;
   padding: 5px;
   width: 150px;
-  display: inline-block;
-  margin-right: 5px;
+  margin-bottom: 5px;
 }
 .gameName {
   font-weight: bold;
@@ -29,4 +28,11 @@
   text-align: center;
   white-space: nowrap;
   overflow-x: hidden;
+}
+
+.createButton {
+  margin: 20px 0 0 0;
+  padding: 10px;
+  font-weight: bold;
+  align-self: center;
 }

@@ -15,7 +15,7 @@ export default class NodeSocial extends React.Component {
 
   render(){
     return (
-      <section>
+      <section style={{height: '100%', ...this.props.style}}>
         <Provider store={store}>
           <Switch>
             <Route path={this.props.match.path} exact component={Lobby} />

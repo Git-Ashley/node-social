@@ -24,7 +24,6 @@ class Lobby extends React.Component {
       sendText: ""
     };
 
-
     let room = null;
     console.log(`props: ${props.roomId}`);
     if(props.roomId) // Then the room should already have been setup
@@ -163,20 +162,22 @@ class Lobby extends React.Component {
       notificationJsx = <div>Loading lobby...</div>;
 
     return (
-      <section id="lobby-root" style={{position: 'relative'}}>
+      <section id="lobby-root" style={{position: 'relative', height: '100%'}}>
         <div id="node-social-popup"/>
         {notificationJsx ?
           notificationJsx :
-          <div>
+          <div style={{display: 'flex', height: '100%'}}>
             <GameCreation gameList={this.props.gameList}
               onCreateGame={this.handleCreateGame}
               onJoinGame={this.handleJoinGame}/>
-            <ChatView
-              players={this.props.players}
-              chatMessages={this.props.chatMessages}
-              onSendMessage={this.handleSendMessage}
-              onSendTextChange={this.handleSendTextChange}
-              sendText={this.state.sendText}/>
+            <div style={{flex: 5}}>
+                <ChatView
+                  players={this.props.players}
+                  chatMessages={this.props.chatMessages}
+                  onSendMessage={this.handleSendMessage}
+                  onSendTextChange={this.handleSendTextChange}
+                  sendText={this.state.sendText}/>
+            </div>
           </div>
         }
       </section>

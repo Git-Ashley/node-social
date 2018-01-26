@@ -64,25 +64,23 @@ export default class extends React.Component {
     }
 
     return (
-      <div className={chat.main}>
-        <div className={chat.flexContainer}>
-          <div className={chat.outputInputContainer}>
-            <div className={`${chat.output} ${scrollbar.dark1}`} ref={el => { this.chatBody = el; }}>
-              {
-                chatMessages.map(msg => <ChatMessage key={msg.id} player={this.props.players.get(msg.username)} message={msg}/>)
-              }
-            </div>
-            <span className={chat.sendForm}>
-              <input type="text" className={chat.input} onKeyDown={e => {if(e.keyCode === 13) this.props.onSendMessage()}} onChange={this.props.onSendTextChange} value={this.props.sendText} />
-              <span className={`${button.bordered} ${button.blue}`} onClick={this.props.onSendMessage}>Send</span>
-            </span>
-
-          </div>
-          <div className={`${chat.userList} ${scrollbar.dark1}`} style={{position: 'relative'}}>
+      <div className={chat.flexContainer}>
+        <div className={chat.outputInputContainer}>
+          <div className={`${chat.output} ${scrollbar.dark1}`} ref={el => { this.chatBody = el; }}>
             {
-              this.props.players.map(player => player.status !== 'OFFLINE' ? <PlayerItem key={player.username} player={player}/> : null)
+              chatMessages.map(msg => <ChatMessage key={msg.id} player={this.props.players.get(msg.username)} message={msg}/>)
             }
           </div>
+          <span className={chat.sendForm}>
+            <input type="text" className={chat.input} onKeyDown={e => {if(e.keyCode === 13) this.props.onSendMessage()}} onChange={this.props.onSendTextChange} value={this.props.sendText} />
+            <span className={`${button.bordered} ${button.blue}`} onClick={this.props.onSendMessage}>Send</span>
+          </span>
+
+        </div>
+        <div className={`${chat.userList} ${scrollbar.dark1}`} style={{position: 'relative'}}>
+          {
+            this.props.players.map(player => player.status !== 'OFFLINE' ? <PlayerItem key={player.username} player={player}/> : null)
+          }
         </div>
       </div>
     );
