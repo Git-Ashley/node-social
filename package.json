@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/Nodeocrat/node-social#readme",
   "dependencies": {
-    "client-room": "git+https://github.com/Nodeocrat/client-room.git#working",
+    "client-room": "git+https://github.com/Nodeocrat/client-room.git",
     "dom-tools": "git+https://github.com/Nodeocrat/dom-tools.git",
     "math-tools": "git+https://github.com/Nodeocrat/math-tools.git",
     "react-redux": "^5.0.6",
