@@ -106,7 +106,7 @@ class Lobby extends React.Component {
         })
       ])
     ).then(() => {
-      chatRoom.emit('CLIENT_INITIALIZED'); // Used with RoomWithInitialization
+      this.room.emit('CLIENT_INITIALIZED'); // Used with RoomWithInitialization
       this.props.actions.joinedLobby(this.room.id);
     }).catch(err => {
       return console.log(`Error while attempting to join socialapp/lobby: ${err}`);
