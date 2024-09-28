@@ -53,54 +53,64 @@ class Lobby extends React.Component {
 
   init(){
     const self = this;
-    this.room.join('/api/socialapp/lobby/join')
-      .then(() => {
-        this.on(EventTypes.CHAT_MESSAGE_RECEIVED,
-          function(message){ this.props.actions.addMessage(message); });
-        this.on(EventTypes.PLAYER_JOINED,
-          function(player){ this.props.actions.addPlayers([player]); });
-        this.on(EventTypes.PLAYER_LEFT,
-          function(username){ this.props.actions.setPlayerOffline(username); });
-        this.on(EventTypes.PLAYER_JOINED_GAME,
-          function({player, game}){
-            this.props.actions.updatePlayer(player);
-            this.props.actions.updateGame(game);
-          });
-        this.on(EventTypes.UPDATE_GAME,
-          function(game){ this.props.actions.updateGame(game); });
-        this.on(EventTypes.UPDATE_PLAYER,
-          function(player){ this.props.actions.updatePlayer(player); });
-        this.on(EventTypes.ADD_GAME,
-          function(game){ this.props.actions.addGames([game]); });
-        this.on(EventTypes.GAME_ENDED,
-          function(game){ this.props.actions.removeGame(game); });
-        this.on('START', function(response){
-          const players = new OrderedHash({array: response.players});
-          const gameList = new OrderedHash({array: response.gameList});
-          this.props.actions.addPlayers(players);
-          this.props.actions.addGames(gameList);
-          this.setState({loading: false});
-        });
-        this.on('RESUME', function(response){
-          const players = new OrderedHash({array: response.players});
-          const gameList = new OrderedHash({array: response.gameList});
-          this.props.actions.addPlayers(players);
-          this.props.actions.addGames(gameList);
-          this.setState({loading: false});
-        });
-        this.on('disconnect', function(){
-          self.disconnectDialog.show();
-        });
-        this.on('reconnect', function(){
-          self.disconnectDialog.close();
-        });
-
-        this.room.initialized();
-        this.props.actions.joinedLobby(this.room.id);
-      })
-      .catch(err => {
-        return console.log(`Error while attempting to join socialapp/lobby: ${err}`);
+  
+    this.on(EventTypes.CHAT_MESSAGE_RECEIVED,
+      function(message){ this.props.actions.addMessage(message); });
+    this.on(EventTypes.PLAYER_JOINED,
+      function(player){ this.props.actions.addPlayers([player]); });
+    this.on(EventTypes.PLAYER_LEFT,
+      function(username){ this.props.actions.setPlayerOffline(username); });
+    this.on(EventTypes.PLAYER_JOINED_GAME,
+      function({player, game}){
+        this.props.actions.updatePlayer(player);
+        this.props.actions.updateGame(game);
       });
+    this.on(EventTypes.UPDATE_GAME,
+      function(game){ this.props.actions.updateGame(game); });
+    this.on(EventTypes.UPDATE_PLAYER,
+      function(player){ this.props.actions.updatePlayer(player); });
+    this.on(EventTypes.ADD_GAME,
+      function(game){ this.props.actions.addGames([game]); });
+    this.on(EventTypes.GAME_ENDED,
+      function(game){ this.props.actions.removeGame(game); });
+    this.on('START', function(response){
+      const players = new OrderedHash({array: response.players});
+      const gameList = new OrderedHash({array: response.gameList});
+      this.props.actions.addPlayers(players);
+      this.props.actions.addGames(gameList);
+      this.setState({loading: false});
+    });
+    this.on('RESUME', function(response){
+      const players = new OrderedHash({array: response.players});
+      const gameList = new OrderedHash({array: response.gameList});
+      this.props.actions.addPlayers(players);
+      this.props.actions.addGames(gameList);
+      this.setState({loading: false});
+    });
+    this.on('disconnect', function(){
+      self.disconnectDialog.show();
+    });
+    this.on('reconnect', function(){
+      self.disconnectDialog.close();
+    });
+
+    this.room.join('/api/socialapp/lobby/join').then(() => 
+      Promise.all([
+        // Simulate loading of assets, etc, before notifying server we are initialized.
+        new Promise(resolve => {
+          chatRoom.on('connect', resolve);
+        }),
+        new Promise(resolve => {
+          //Simulate fetching data, etc.
+          setTimeout(resolve, 1000);
+        })
+      ])
+    ).then(() => {
+      chatRoom.emit('CLIENT_INITIALIZED'); // Used with RoomWithInitialization
+      this.props.actions.joinedLobby(this.room.id);
+    }).catch(err => {
+      return console.log(`Error while attempting to join socialapp/lobby: ${err}`);
+    });
   }
 
   componentWillUnmount(){
