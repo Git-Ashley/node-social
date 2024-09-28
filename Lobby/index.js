@@ -98,7 +98,7 @@ class Lobby extends React.Component {
       Promise.all([
         // Simulate loading of assets, etc, before notifying server we are initialized.
         new Promise(resolve => {
-          chatRoom.on('connect', resolve);
+          this.room.on('connect', resolve);
         }),
         new Promise(resolve => {
           //Simulate fetching data, etc.
