@@ -17,7 +17,7 @@ export default class Game extends React.Component {
     // TODO: Loading progress screen
     this.leave = this.leave.bind(this);
     this.gameInstance = NodeShooter()(this.room);
-    this.room.initialized();
+    this.room.emit('CLIENT_INITIALIZED');
   }
 
   get room(){
